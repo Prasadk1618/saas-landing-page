@@ -1,20 +1,12 @@
-version: 0.2
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/saas-landing-page
+    overwrite: yes
 
-phases:
-  install:
-    runtime-versions:
-      nodejs: 18
-    commands:
-      - echo Installing dependencies...
-      - npm ci --legacy-peer-deps
-
-  build:
-    commands:
-      - echo Building the React app...
-      - npm run build
-
-artifacts:
-  files:
-    - '**/*'
-  base-directory: dist
-  discard-paths: no
+hooks:
+  AfterInstall:
+    - location: scripts/deploy.sh
+      timeout: 300
+      runas: ubuntu
